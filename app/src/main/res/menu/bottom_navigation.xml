@@ -20,8 +20,11 @@
         android:id="@+id/navMauritius"
         android:icon="@drawable/ic_five"
         android:title="Mauritius" />
+
+    <!--
     <item
-        android:id="@+id/navBang"
+        android:id="@+id/navBangladesh"
         android:icon="@drawable/ic_six"
-        android:title="Bang" />
+        android:title="Bangladesh" />
+    -->
 </menu>
