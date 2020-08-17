@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navGlasgow"
+        android:icon="@drawable/ic_one"
+        android:title="Glasgow" />
+    <item
+        android:id="@+id/navLondon"
+        android:icon="@drawable/ic_two"
+        android:title="London" />
+    <item
+        android:id="@+id/navNewYork"
+        android:icon="@drawable/ic_three"
+        android:title="New York" />
+    <item
+        android:id="@+id/navOman"
+        android:icon="@drawable/ic_four"
+        android:title="Oman" />
+    <item
+        android:id="@+id/navMauritius"
+        android:icon="@drawable/ic_five"
+        android:title="Mauritius" />
+    <item
+        android:id="@+id/navBang"
+        android:icon="@drawable/ic_six"
+        android:title="Bang" />
+</menu>
