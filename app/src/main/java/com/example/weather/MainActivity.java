@@ -1,36 +1,20 @@
 package com.example.weather;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.text.SimpleDateFormat;
 
-import android.view.View;
-import android.widget.Button;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class MainActivity extends AppCompatActivity implements ListFragment.ItemSelected {
 
@@ -64,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
+        {
             FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
             Fragment selectedFragment = new ListFragment();
 
@@ -84,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
 
         getSupportFragmentManager().executePendingTransactions();
 
-        //The phone is in portrait mode
+        //Phone is portrait
         if(findViewById(R.id.layout_portrait) != null)
         {
             FragmentManager fm = this.getSupportFragmentManager();
@@ -99,13 +84,14 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
             }
         }
 
-        //The phone is in landscape mode
+        //Phone is landscape
         if(findViewById(R.id.layout_land) != null)
         {
             FragmentManager fm = this.getSupportFragmentManager();
             Fragment f = fm.findFragmentByTag("currentFragment");
 
-            if(f!=null) {
+            if(f!=null)
+            {
                 fm.beginTransaction()
                         .show(fm.findFragmentById(R.id.details_container))
                         .show(fm.findFragmentById(R.id.fragment_container))
@@ -113,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
                         .commit();
             }
         }
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -130,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
                     }
                     args.putBoolean("landscape", isLandscape);
 
-                    switch(menuItem.getItemId()) {
+                    switch(menuItem.getItemId())
+                    {
                         case R.id.navGlasgow:
                             args.putString("url", glasgowURL);
                             selectedFragment.setArguments(args);
@@ -156,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
                             selectedFragment.setArguments(args);
                             currentFragment = "mauritius";
                             break;
-
                     }
 
                     getSupportFragmentManager().beginTransaction()
@@ -168,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
 
                     getSupportFragmentManager().executePendingTransactions();
 
-                    //The phone is in portrait
+                    //Phone is portrait
                     if(findViewById(R.id.layout_portrait) != null)
                     {
                         FragmentManager fm = getSupportFragmentManager();
@@ -182,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
                         }
                     }
 
-                    //The phone is in landscape
+                    //Phone is landscape
                     if(findViewById(R.id.layout_land) != null)
                     {
                         FragmentManager fm = getSupportFragmentManager();
@@ -202,23 +187,29 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
 
 // Loads changes to orientation
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig)
+    {
         super.onConfigurationChanged(newConfig);
 
-        if(isLandscape == true){
+        if(isLandscape == true)
+        {
             isLandscape = false;
-        } else {
+        }
+        else
+        {
             isLandscape = true;
         }
     }
 
 
     @Override
-    public void onItemSelected(RssResponse response, int index) {
+    public void onItemSelected(RssResponse response, int index)
+    {
 
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MMMM-yyyy");
 
-        if(response.getIsDefault() == false) {
+        if(response.getIsDefault() == false)
+        {
             StringBuilder output = new StringBuilder();
 
             output.append("<b>Basic Info: </b>" + "<br /><br />");
@@ -239,11 +230,11 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
             str = response.getPublished();
             output.append(str);
 
-
-
             txtDetails.setText(Html.fromHtml(output.toString()));
         }
-        else {
+
+        else
+        {
             txtDetails.setText(response.getDescription());
         }
 
@@ -252,7 +243,8 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
             FragmentManager fm = this.getSupportFragmentManager();
             Fragment f = fm.findFragmentByTag("currentFragment");
 
-            if(f!=null) {
+            if(f!=null)
+            {
                 fm.beginTransaction()
                         .show(fm.findFragmentById(R.id.details_container))
                         .hide(fm.findFragmentById(R.id.fragment_container))
@@ -260,8 +252,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
                         .commit();
             }
         }
-
         detailsScrollView.smoothScrollTo(0, txtDetails.getTop());
-
     }
-} // End of MainActivity
+}

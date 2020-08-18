@@ -45,35 +45,36 @@ public class ListFragment extends androidx.fragment.app.ListFragment {
         void onItemSelected(RssResponse w, int index);
     }
 
-
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
 
         activity = (ItemSelected) context;
         landValue = this.getArguments().getBoolean("landscape");
     }
 
-
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
         URL = getArguments().getString("url");
         new ProcessInBackground().execute();
-
     }
 
 
-    public void selectDefault() {
-        if(landValue) {
+    public void selectDefault()
+    {
+        if(landValue)
+        {
             activity.onItemSelected(weather.get(0), 0);
         }
     }
 
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-
+    public void onListItemClick(ListView l, View v, int position, long id)
+    {
         ArrayList<RssResponse> newWeather = (ArrayList<RssResponse>) adapter.getFilteredData();
 
         if(newWeather.size() > 0)
@@ -107,10 +108,11 @@ public class ListFragment extends androidx.fragment.app.ListFragment {
     public class ProcessInBackground extends AsyncTask<Void, Void, ArrayList<RssResponse>>
     {
         ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        Exception exception = null;
+        Exception ex = null;
 
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute()
+        {
             super.onPreExecute();
 
             titles = new ArrayList<String>();
@@ -121,7 +123,8 @@ public class ListFragment extends androidx.fragment.app.ListFragment {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<RssResponse> s) {
+        protected void onPostExecute(ArrayList<RssResponse> s)
+        {
             super.onPostExecute(s);
             progressDialog.dismiss();
 
@@ -130,8 +133,8 @@ public class ListFragment extends androidx.fragment.app.ListFragment {
         }
 
         @Override
-        protected ArrayList<RssResponse> doInBackground(Void... params) {
-
+        protected ArrayList<RssResponse> doInBackground(Void... params)
+        {
             try
             {
                 java.net.URL url = new URL(URL);
@@ -158,13 +161,17 @@ public class ListFragment extends androidx.fragment.app.ListFragment {
                             weatherToAdd.setUniqueID(responseID);
                             responseID = responseID + 1;
                         }
+
+
                         else if(xpp.getName().equalsIgnoreCase("title"))
                         {
                             if(insideItem)
                             {
                                 weatherToAdd.setTitle(xpp.nextText());
                             }
-                        }else if(xpp.getName().equalsIgnoreCase("description"))
+                        }
+
+                        else if(xpp.getName().equalsIgnoreCase("description"))
                         {
                             if(insideItem)
                             {
@@ -172,15 +179,18 @@ public class ListFragment extends androidx.fragment.app.ListFragment {
                                 String[] detailsArray = details.split("<br />+");
                                 String detailsRest = "";
 
-                                if(detailsArray.length > 1) {
+                                if(detailsArray.length > 1)
+                                {
                                     String[] startArray = detailsArray[0].split("\\s+");
                                     String[] endArray = detailsArray[1].split("\\s+");
                                     Date start = fmt.parse(startArray[5] + "-" + startArray[4] + "-" + startArray[3]);
                                     Date end = fmt.parse(endArray[5] + "-" + endArray[4] + "-" + endArray[3]);
                                 }
-                                else {
+
+                                else
+                                 {
                                     detailsRest = detailsArray[0];
-                                }
+                                 }
 
                                 if(detailsArray.length > 2) {
                                     detailsRest = detailsArray[2];
@@ -201,13 +211,15 @@ public class ListFragment extends androidx.fragment.app.ListFragment {
                         }
                         else if (xpp.getName().equalsIgnoreCase("link"))
                         {
-                            if(insideItem) {
+                            if(insideItem)
+                            {
                                 weatherToAdd.setLink(xpp.nextText());
                             }
                         }
                         else if (xpp.getName().equalsIgnoreCase("pubDate"))
                         {
-                            if(insideItem) {
+                            if(insideItem)
+                            {
                                 weatherToAdd.setPublished(xpp.nextText());
                             }
                         }
@@ -223,32 +235,29 @@ public class ListFragment extends androidx.fragment.app.ListFragment {
             }
             catch(MalformedURLException e)
             {
-                exception = e;
+                ex = e;
             }
             catch (XmlPullParserException e)
             {
-                exception = e;
+                ex = e;
             }
             catch (IOException e)
             {
-                exception = e;
+                ex = e;
             }
             catch (ParseException e)
             {
                 e.printStackTrace();
             }
 
-            if(weather.size() > 0) {
-                return weather;
-            }
-            else
+            if (weather.size() <= 0)
             {
                 RssResponse defaultResponse = new RssResponse();
                 defaultResponse.setTitle("Something went wrong, nothing to show");
                 defaultResponse.setDescription("No data");
                 weather.add(defaultResponse);
-                return weather;
             }
+            return weather;
         }
     }
 }

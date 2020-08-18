@@ -5,11 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,7 +16,8 @@ public class CustomAdapter extends BaseAdapter
     private LayoutInflater mInflater;
 
 
-    public CustomAdapter(Context context, List<RssResponse> data) {
+    public CustomAdapter(Context context, List<RssResponse> data)
+    {
         this.filteredData = data ;
         mInflater = LayoutInflater.from(context);
     }
@@ -41,17 +38,21 @@ public class CustomAdapter extends BaseAdapter
         return filteredData;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         ViewHolder holder;
 
-        if (convertView == null) {
+        if (convertView == null)
+        {
             convertView = mInflater.inflate(android.R.layout.simple_list_item_1, null);
 
             holder = new ViewHolder();
             holder.text = (TextView) convertView.findViewById(android.R.id.text1);
 
             convertView.setTag(holder);
-        } else {
+        }
+        else
+        {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -59,8 +60,8 @@ public class CustomAdapter extends BaseAdapter
         return convertView;
     }
 
-    static class ViewHolder {
+    static class ViewHolder
+    {
         TextView text;
     }
-
 }

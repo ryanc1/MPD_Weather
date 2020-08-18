@@ -1,7 +1,5 @@
 package com.example.weather;
 
-import java.util.Date;
-
 public class RssResponse {
 
     private int uniqueID;
@@ -11,14 +9,16 @@ public class RssResponse {
     private String published;
     private boolean isDefault = true;
 
-    public RssResponse() {
+    public RssResponse()
+    {
         this.title = "default";
         this.description = "default";
         this.link = "default";
         this.published = "default";
     }
 
-    public RssResponse(String title, String description, String link, String published) {
+    public RssResponse(String title, String description, String link, String published)
+    {
         this.title = title;
         this.description = description;
         this.link = link;
