@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
             if(f!=null)
             {
                 fm.beginTransaction()
-                        .show(fm.findFragmentById(R.id.details_container))
+                        .hide(fm.findFragmentById(R.id.details_container))
                         .show(fm.findFragmentById(R.id.fragment_container))
                         .addToBackStack(null)
                         .commit();
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
 
                         if(f!=null) {
                             fm.beginTransaction()
-                                    .show(fm.findFragmentById(R.id.details_container))
+                                    .hide(fm.findFragmentById(R.id.details_container))
                                     .show(fm.findFragmentById(R.id.fragment_container))
                                     .commit();
                         }
@@ -251,6 +251,22 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Item
                         .addToBackStack(null)
                         .commit();
             }
+
+        }
+        if(findViewById(R.id.layout_land) != null)
+        {
+            FragmentManager fm = this.getSupportFragmentManager();
+            Fragment f = fm.findFragmentByTag("currentFragment");
+
+            if(f!=null)
+            {
+                fm.beginTransaction()
+                        .show(fm.findFragmentById(R.id.details_container))
+                        .hide(fm.findFragmentById(R.id.fragment_container))
+                        .addToBackStack(null)
+                        .commit();
+            }
+
         }
         detailsScrollView.smoothScrollTo(0, txtDetails.getTop());
     }
